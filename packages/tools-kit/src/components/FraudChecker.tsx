@@ -213,6 +213,21 @@ export function FraudChecker({
       <ResultsColumn>
         {result && style ? (
           <>
+            {result.demo && (
+              <div className="rounded-2xl border-2 border-amber-400 bg-amber-50 p-4">
+                <p className="text-sm font-bold text-amber-900">
+                  ⚠ Simulated numbers — not this customer&rsquo;s real history
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-amber-900">
+                  No courier account is connected, so the figures below are generated from the
+                  phone number itself for demonstration. They are not a delivery record. Do not
+                  accept, reject or hold a real order based on this result.
+                </p>
+                <p className="mt-2 text-xs font-medium text-amber-900">
+                  Connect a courier account to check the customer&rsquo;s actual parcel history.
+                </p>
+              </div>
+            )}
             <div className={`rounded-2xl border p-5 ${style.border}`}>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <p className="text-xs font-medium uppercase tracking-wide text-gray-500">
@@ -229,7 +244,7 @@ export function FraudChecker({
                     }`}
                   >
                     {result.demo
-                      ? 'Demo data'
+                      ? 'Simulated — not real data'
                       : result.cached || result.served === 'cache'
                         ? 'Connected · cached'
                         : /courier|aggregator|history/.test(result.served)

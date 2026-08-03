@@ -8,6 +8,13 @@ export type Tool = {
   desc: string;
   ready: boolean;
   category?: 'Business' | 'Creator' | 'Developer & SEO' | 'Image & Document' | 'Productivity' | 'Everyday Calculators';
+  /**
+   * Distinct utilities this entry contributes to the site-wide total.
+   * Omitted = 1 (a single-purpose tool). Studios set their own count.
+   * 0 marks an SEO landing page for a utility already counted inside a studio,
+   * so the total never double-counts.
+   */
+  utilities?: number;
 };
 
 export const TOOLS: Tool[] = [
@@ -74,7 +81,7 @@ export const TOOLS: Tool[] = [
   {
     slug: 'invoice-generator',
     title: 'Professional Invoice Generator',
-    desc: 'Create branded invoices in any currency, auto-calculate tax, and export PDF or packing slips.',
+    desc: 'Create branded invoices in 10 currencies, auto-calculate tax, and export PDF or packing slips.',
     ready: true,
   },
   {
@@ -116,13 +123,13 @@ export const TOOLS: Tool[] = [
   {
     slug: 'fraud-checker',
     title: 'COD Order Risk Checker',
-    desc: "Check courier-wise parcel receive history and verify risky COD orders before shipping.",
+    desc: "Check courier-wise parcel receive history and verify risky COD orders before shipping. Real history needs your courier account connected.",
     ready: true,
   },
   {
     slug: 'parcel-tracking',
     title: 'Courier Parcel Tracking Hub',
-    desc: 'Track multiple courier parcels in one place.',
+    desc: 'Track multiple courier parcels in one place. Needs your courier account connected once.',
     ready: true,
   },
   {
@@ -150,27 +157,33 @@ export const TOOLS: Tool[] = [
   { slug: 'supplier-message', title: 'Supplier Message Generator', desc: 'Generate complete quotation, sample and order follow-up messages.', ready: true, category: 'Business' },
   { slug: 'video-script-timer', title: 'Video Script Timing Calculator', desc: 'Estimate narration duration, word count and recommended scene count.', ready: true, category: 'Creator' },
   { slug: 'teleprompter', title: 'Full-Screen Teleprompter', desc: 'Present scripts with adjustable automatic scrolling in full screen.', ready: true, category: 'Creator' },
-  { slug: 'social-media-tools', title: 'Social Media Tools', desc: 'Create, format, check and measure social content with 12 focused tools in one organized workspace.', ready: true, category: 'Creator' },
-  { slug: 'image-tools', title: 'Image Tools', desc: 'Optimize, convert, resize, clean and present images with 12 private browser tools.', ready: true, category: 'Image & Document' },
-  { slug: 'pdf-document-studio', title: 'PDF & Document Studio', desc: 'Merge, split, edit, sign, convert, compare and generate polished PDF documents in one private workspace.', ready: true, category: 'Image & Document' },
-  { slug: 'developer-tools', title: 'Developer Tools', desc: 'Format, inspect, convert, generate and debug developer data with 21 focused utilities.', ready: true, category: 'Developer & SEO' },
-  { slug: 'website-seo-tools', title: 'Website & SEO Tools', desc: 'Create, inspect and improve metadata, crawlability, content and launch quality with 19 focused utilities.', ready: true, category: 'Developer & SEO' },
-  { slug: 'calculator-tools', title: 'Calculator Tools', desc: 'Solve date, financial, conversion, travel and cross-time-zone questions with 18 focused calculators.', ready: true, category: 'Everyday Calculators' },
-  { slug: 'productivity-tools', title: 'Personal Productivity Tools', desc: 'Plan, prioritize, focus and review work with 12 practical productivity utilities.', ready: true, category: 'Productivity' },
-  { slug: 'education-tools', title: 'Education Tools', desc: 'Calculate grades, plan study, improve writing and generate practice material with 17 focused learning tools.', ready: true, category: 'Productivity' },
-  { slug: 'career-job-tools', title: 'Career & Job Tools', desc: 'Prepare applications, compare opportunities and strengthen professional positioning with 12 career tools.', ready: true, category: 'Productivity' },
-  { slug: 'health-tools', title: 'Health & Lifestyle Calculators', desc: 'Explore general wellbeing estimates and reminder schedules with 10 clearly bounded informational tools.', ready: true, category: 'Everyday Calculators' },
-  { slug: 'travel-tools', title: 'Travel Budget Calculator', desc: 'Calculate a travel budget, then plan packing, currency, luggage, flights and more in one workspace.', ready: true, category: 'Everyday Calculators' },
-  { slug: 'creator-tools', title: 'Creator Tools', desc: 'Plan, time, produce, price and repurpose content with 12 focused creator utilities.', ready: true, category: 'Creator' },
-  { slug: 'text-utility-tools', title: 'Text & Utility Tools', desc: 'Transform, organize, inspect and extract text with 14 private browser utilities.', ready: true, category: 'Productivity' },
-  { slug: 'home-everyday-tools', title: 'Home & Everyday Tools', desc: 'Estimate renovation, moving, kitchen and home-energy requirements with 11 practical tools.', ready: true, category: 'Everyday Calculators' },
-  { slug: 'social-share-preview', title: 'Social Sharing Preview Debugger', desc: 'Preview how page metadata will appear when shared on social platforms.', ready: true, category: 'Developer & SEO' },
-  { slug: 'job-offer-comparison', title: 'Job Offer Comparison Calculator', desc: 'Compare the adjusted financial value of two job offers.', ready: true, category: 'Productivity' },
-  { slug: 'study-hours-planner', title: 'Study Hours Planner', desc: 'Convert workload and remaining days into a realistic daily study plan.', ready: true, category: 'Productivity' },
-  { slug: 'room-paint-calculator', title: 'Room Paint and Primer Calculator', desc: 'Estimate paintable area and litres required, including waste.', ready: true, category: 'Everyday Calculators' },
+  { slug: 'social-media-tools', title: 'Social Media Tools', desc: 'Create, format, check and measure social content with 24 focused tools — including the full image toolkit — in one organized workspace.', ready: true, utilities: 12, category: 'Creator' },
+  { slug: 'image-tools', title: 'Image Tools', desc: 'Optimize, convert, resize, clean and present images with 12 private browser tools.', ready: true, utilities: 12, category: 'Image & Document' },
+  { slug: 'pdf-document-studio', title: 'PDF & Document Studio', desc: 'Merge, split, edit, sign, convert, compare and generate polished PDF documents with 17 tools in one private workspace.', ready: true, utilities: 17, category: 'Image & Document' },
+  { slug: 'developer-tools', title: 'Developer Tools', desc: 'Format, inspect, convert, generate and debug developer data with 21 focused utilities.', ready: true, utilities: 21, category: 'Developer & SEO' },
+  { slug: 'website-seo-tools', title: 'Website & SEO Tools', desc: 'Create, inspect and improve metadata, crawlability, content and launch quality with 19 focused utilities.', ready: true, utilities: 19, category: 'Developer & SEO' },
+  { slug: 'calculator-tools', title: 'Calculator Tools', desc: 'Solve date, financial, conversion, travel and cross-time-zone questions with 18 focused calculators.', ready: true, utilities: 18, category: 'Everyday Calculators' },
+  { slug: 'productivity-tools', title: 'Personal Productivity Tools', desc: 'Plan, prioritize, focus and review work with 12 practical productivity utilities.', ready: true, utilities: 12, category: 'Productivity' },
+  { slug: 'education-tools', title: 'Education Tools', desc: 'Calculate grades, plan study, improve writing and generate practice material with 17 focused learning tools.', ready: true, utilities: 17, category: 'Productivity' },
+  { slug: 'career-job-tools', title: 'Career & Job Tools', desc: 'Prepare applications, compare opportunities and strengthen professional positioning with 12 career tools.', ready: true, utilities: 12, category: 'Productivity' },
+  { slug: 'health-tools', title: 'Health & Lifestyle Calculators', desc: 'Explore general wellbeing estimates and reminder schedules with 10 clearly bounded informational tools.', ready: true, utilities: 10, category: 'Everyday Calculators' },
+  { slug: 'travel-tools', title: 'Travel Budget Calculator & Trip Tools', desc: 'Calculate a travel budget, then plan packing, currency, luggage, flights and more with 12 utilities in one workspace.', ready: true, utilities: 12, category: 'Everyday Calculators' },
+  { slug: 'creator-tools', title: 'Creator Tools', desc: 'Plan, time, produce, price and repurpose content with 12 focused creator utilities.', ready: true, utilities: 12, category: 'Creator' },
+  { slug: 'text-utility-tools', title: 'Text & Utility Tools', desc: 'Transform, organize, inspect and extract text with 14 private browser utilities.', ready: true, utilities: 14, category: 'Productivity' },
+  { slug: 'home-everyday-tools', title: 'Home & Everyday Tools', desc: 'Estimate renovation, moving, kitchen and home-energy requirements with 11 practical tools.', ready: true, utilities: 11, category: 'Everyday Calculators' },
+  { slug: 'social-share-preview', title: 'Social Sharing Preview Debugger', desc: 'Preview how page metadata will appear when shared on social platforms.', ready: true, utilities: 0, category: 'Developer & SEO' },
+  { slug: 'job-offer-comparison', title: 'Job Offer Comparison Calculator', desc: 'Compare the adjusted financial value of two job offers.', ready: true, utilities: 0, category: 'Productivity' },
+  { slug: 'study-hours-planner', title: 'Study Hours Planner', desc: 'Convert workload and remaining days into a realistic daily study plan.', ready: true, utilities: 0, category: 'Productivity' },
+  { slug: 'room-paint-calculator', title: 'Room Paint and Primer Calculator', desc: 'Estimate paintable area and litres required, including waste.', ready: true, utilities: 0, category: 'Everyday Calculators' },
 ];
 
 export const TOOL_SLUGS = TOOLS.map((t) => t.slug);
+
+/** Distinct utilities across every ready tool — studios counted by their contents. */
+export const TOTAL_UTILITIES = TOOLS.filter((t) => t.ready).reduce(
+  (sum, t) => sum + (t.utilities ?? 1),
+  0,
+);
 
 export function getTool(slug: string): Tool | undefined {
   return TOOLS.find((t) => t.slug === slug);

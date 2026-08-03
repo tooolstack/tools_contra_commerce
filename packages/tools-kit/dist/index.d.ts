@@ -612,7 +612,11 @@ declare function TextUtilityStudio(): react.JSX.Element;
 
 declare function HomeToolsStudio(): react.JSX.Element;
 
-declare function ImageToolsStudio(): react.JSX.Element;
+type ImageToolId = 'compress' | 'background' | 'resize' | 'passport' | 'product-clean' | 'to-webp' | 'webp-png' | 'blur-face' | 'screenshot' | 'profile' | 'social-size' | 'shadow';
+declare function ImageToolsStudio({ initialTool, embedded }?: {
+    initialTool?: ImageToolId;
+    embedded?: boolean;
+}): react.JSX.Element;
 
 type QrGeneratorProps = ToolProps;
 declare function QrGenerator({ brand, ctaText, ctaUrl, className, }: QrGeneratorProps): react.JSX.Element;
@@ -844,8 +848,13 @@ declare function FraudChecker({ brand, ctaText, ctaUrl, className, endpoint, }: 
 type ParcelTrackingProps = ToolProps & {
     /** API endpoint (default: /api/track) */
     endpoint?: string;
+    /**
+     * Where to send a user who has no courier connected yet. Pass an absolute URL
+     * when tools are served from per-tool subdomains.
+     */
+    settingsUrl?: string;
 };
-declare function ParcelTracking({ brand, ctaText, ctaUrl, className, endpoint, }: ParcelTrackingProps): react.JSX.Element;
+declare function ParcelTracking({ brand, ctaText, ctaUrl, className, endpoint, settingsUrl, }: ParcelTrackingProps): react.JSX.Element;
 
 type StoreHealthCheckerProps = ToolProps & {
     /** API endpoint (default: /api/store-health) */

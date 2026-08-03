@@ -23,6 +23,7 @@ const assertNames = (markup: string, names: string[]) => names.forEach((name) =>
 describe('master roadmap coverage', () => {
   it('renders every Social Media tool', () => assertNames(text(<SocialMediaToolSuite tool="social-media-tools" />), [
     'Instagram Bio Generator','Hashtag Cleaner','Caption Line-Break Formatter','YouTube Timestamp Generator','Thumbnail Title Checker','Facebook Ad Text Formatter','LinkedIn Post Formatter','X / Twitter Thread Splitter','Engagement Rate Calculator','Influencer Rate Calculator','Giveaway Winner Picker','Username Availability Checker',
+    'Image Compressor','Background Remover','Image Resizer','Passport Photo Maker','Product Image Background Cleaner','Image to WebP','WebP to PNG','Blur Face Tool','Screenshot Beautifier','Profile Picture Cropper','Social Media Size Converter','Product Photo Shadow Generator',
   ]));
   it('renders every Developer tool', () => assertNames(text(<DeveloperToolsStudio />), [
     'JSON Formatter','JSON Difference Checker','API Response Viewer','JWT Decoder','Regex Tester','Cron Expression Generator','Timestamp Converter','HTML Table Generator','CSS Gradient Generator','Meta Tag Generator','Schema Markup Generator','HTTP Header Checker','Redirect Checker','UTM Builder','.env Difference Checker','SQL Query Formatter','API Error Explainer','Webhook Payload Viewer','Facebook Pixel Event Tester','JSON to TypeScript Interface','Database Schema Visualizer',

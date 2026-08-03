@@ -27,6 +27,7 @@ export default function ParcelTrackingPage() {
         brand="Contra Commerce"
         ctaText="Auto-track every parcel and notify customers with Contra Commerce"
         ctaUrl="https://app.contracommerce.com/signup"
+        settingsUrl={`${getHubUrl()}/courier-settings`}
       />
     </main>
   );

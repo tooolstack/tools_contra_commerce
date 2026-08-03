@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { DropdownControl } from './ui';
+import { ImageToolsStudio, imageToolModules, type ImageToolId } from './ImageToolsStudio';
 
 export type SocialMediaToolSlug =
   | 'social-media-tools' | 'instagram-bio-generator' | 'hashtag-cleaner' | 'youtube-timestamp-generator'
@@ -49,7 +50,7 @@ export function SocialMediaToolSuite({ tool }: { tool: SocialMediaToolSlug }) {
   return <UsernameChecker />;
 }
 
-type SocialModule = Exclude<SocialMediaToolSlug, 'social-media-tools'> | 'caption-formatter';
+type SocialModule = Exclude<SocialMediaToolSlug, 'social-media-tools'> | 'caption-formatter' | `image:${ImageToolId}`;
 const socialModules: { slug: SocialModule; title: string; group: string }[] = [
   { slug: 'instagram-bio-generator', title: 'Instagram Bio Generator', group: 'Create' },
   { slug: 'caption-formatter', title: 'Caption Line-Break Formatter', group: 'Create' },
@@ -63,6 +64,7 @@ const socialModules: { slug: SocialModule; title: string; group: string }[] = [
   { slug: 'influencer-rate-calculator', title: 'Influencer Rate Calculator', group: 'Measure' },
   { slug: 'giveaway-winner-picker', title: 'Giveaway Winner Picker', group: 'Community' },
   { slug: 'social-username-checker', title: 'Username Availability Checker', group: 'Community' },
+  ...imageToolModules.map((item) => ({ slug: `image:${item.id}` as SocialModule, title: item.name, group: `Image · ${item.group}` })),
 ];
 
 function SocialMediaTools() {
@@ -71,10 +73,10 @@ function SocialMediaTools() {
   const groups = Array.from(new Set(socialModules.map((item) => item.group)));
   return <div className="grid gap-5 xl:grid-cols-[260px_minmax(0,1fr)]">
     <aside className="self-start rounded-2xl border border-gray-200 bg-white p-3 shadow-sm xl:sticky xl:top-4">
-      <div className="px-3 pb-3 pt-2"><p className="text-xs font-bold uppercase tracking-[.18em] text-violet-600">12 focused tools</p><h2 className="mt-1 text-lg font-bold text-gray-950">Social Media Tools</h2></div>
+      <div className="px-3 pb-3 pt-2"><p className="text-xs font-bold uppercase tracking-[.18em] text-violet-600">24 focused tools</p><h2 className="mt-1 text-lg font-bold text-gray-950">Social Media Tools</h2></div>
       {groups.map((group) => <div key={group} className="mb-3"><p className="px-3 py-1 text-[10px] font-bold uppercase tracking-[.16em] text-gray-400">{group}</p>{socialModules.filter((item) => item.group === group).map((item) => <button key={item.slug} onClick={() => setActive(item.slug)} className={`mb-1 w-full rounded-xl px-3 py-2.5 text-left text-sm font-medium transition ${active === item.slug ? 'bg-gray-950 text-white shadow-sm' : 'text-gray-700 hover:bg-gray-100'}`}>{item.title}</button>)}</div>)}
     </aside>
-    <div className="min-w-0"><div className="mb-4 rounded-2xl border border-gray-200 bg-gradient-to-r from-violet-50 to-pink-50 p-5"><p className="text-xs font-bold uppercase tracking-[.16em] text-violet-600">Social Media Tools</p><h2 className="mt-1 text-2xl font-bold text-gray-950">{selected.title}</h2><p className="mt-1 text-sm text-gray-600">Work privately in your browser, then copy the finished result to your platform.</p></div>{active === 'caption-formatter' ? <CaptionLineBreakFormatter /> : <SocialMediaToolSuite tool={active} />}</div>
+    <div className="min-w-0"><div className="mb-4 rounded-2xl border border-gray-200 bg-gradient-to-r from-violet-50 to-pink-50 p-5"><p className="text-xs font-bold uppercase tracking-[.16em] text-violet-600">Social Media Tools</p><h2 className="mt-1 text-2xl font-bold text-gray-950">{selected.title}</h2><p className="mt-1 text-sm text-gray-600">Work privately in your browser, then copy or download the finished result for your platform.</p></div>{active === 'caption-formatter' ? <CaptionLineBreakFormatter /> : active.startsWith('image:') ? <ImageToolsStudio embedded initialTool={active.slice(6) as ImageToolId}/> : <SocialMediaToolSuite tool={active as SocialMediaToolSlug} />}</div>
   </div>;
 }
 

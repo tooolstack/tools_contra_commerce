@@ -11,7 +11,6 @@ import {
 } from '../logic/courier-charge';
 import {
   bdt,
-  CalculatorShell,
   InputCard,
   NumberField,
   OutputBox,
@@ -286,7 +285,7 @@ export function CourierChargeComparison({
   });
 
   return (
-    <CalculatorShell className={className}>
+    <div className={`grid min-w-0 grid-cols-1 gap-6 ${className}`}>
       <InputCard title="Customer location & parcel">
         <SelectField
           label="Pickup district"
@@ -524,6 +523,6 @@ export function CourierChargeComparison({
           ) : null}
         </div>
       </ResultsColumn>
-    </CalculatorShell>
+    </div>
   );
 }

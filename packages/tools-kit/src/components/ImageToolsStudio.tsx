@@ -3,16 +3,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { DropdownControl } from './ui';
 
-type Tool='compress'|'background'|'resize'|'passport'|'product-clean'|'to-webp'|'webp-png'|'blur-face'|'screenshot'|'profile'|'social-size'|'shadow';
+export type ImageToolId='compress'|'background'|'resize'|'passport'|'product-clean'|'to-webp'|'webp-png'|'blur-face'|'screenshot'|'profile'|'social-size'|'shadow';
+type Tool=ImageToolId;
 type ImageInfo={name:string;size:number;type:string;width:number;height:number};
 type ExportInfo={size:number;type:string;width:number;height:number};
 
-const tools:{id:Tool;name:string;group:string}[]=[
+export const imageToolModules:{id:Tool;name:string;group:string}[]=[
   {id:'compress',name:'Image Compressor',group:'Optimize'},{id:'to-webp',name:'Image to WebP',group:'Optimize'},{id:'webp-png',name:'WebP to PNG',group:'Optimize'},
   {id:'resize',name:'Image Resizer',group:'Resize & Crop'},{id:'passport',name:'Passport Photo Maker',group:'Resize & Crop'},{id:'profile',name:'Profile Picture Cropper',group:'Resize & Crop'},{id:'social-size',name:'Social Media Size Converter',group:'Resize & Crop'},
   {id:'background',name:'Background Remover',group:'Product & Privacy'},{id:'product-clean',name:'Product Image Background Cleaner',group:'Product & Privacy'},{id:'shadow',name:'Product Photo Shadow Generator',group:'Product & Privacy'},{id:'blur-face',name:'Blur Face Tool',group:'Product & Privacy'},
   {id:'screenshot',name:'Screenshot Beautifier',group:'Design'},
 ];
+const tools=imageToolModules;
 const c='w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-gray-900 focus:ring-2 focus:ring-gray-100';
 const btn='rounded-xl bg-gray-950 px-4 py-2.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40';
 const MAX_IMAGE_BYTES=40*1024*1024;const MAX_SOURCE_PIXELS=50_000_000;const MAX_EXPORT_PIXELS=36_000_000;const MAX_EXPORT_EDGE=6_000;
@@ -28,12 +30,12 @@ export function validateImageFile(file:{name:string;size:number;type:string},wid
 function imageFrom(url:string){return new Promise<HTMLImageElement>((resolve,reject)=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(new Error('The browser could not decode this image.'));image.src=url})}
 function canvasBlob(canvas:HTMLCanvasElement,type:string,quality:number){return new Promise<Blob>((resolve,reject)=>canvas.toBlob(value=>value?resolve(value):reject(new Error('The browser could not create the export.')),type,quality))}
 
-export function ImageToolsStudio(){
-  const[active,setActive]=useState<Tool>('compress');const[src,setSrc]=useState('');const[fileName,setFileName]=useState('image');
+export function ImageToolsStudio({initialTool='compress',embedded=false}:{initialTool?:ImageToolId;embedded?:boolean}={}){
+  const[active,setActive]=useState<Tool>(initialTool);const[src,setSrc]=useState('');const[fileName,setFileName]=useState('image');
   const[quality,setQuality]=useState('82');const[width,setWidth]=useState('1200');const[height,setHeight]=useState('1200');const[preset,setPreset]=useState('Instagram square — 1080×1080');
   const[threshold,setThreshold]=useState('38');const[region,setRegion]=useState('30,15,40,40');const[padding,setPadding]=useState('100');const[color,setColor]=useState('#7c3aed');
   const[status,setStatus]=useState('Choose an image to begin.');const[original,setOriginal]=useState<ImageInfo|null>(null);const[output,setOutput]=useState<ExportInfo|null>(null);const[busy,setBusy]=useState(false);
-  const[hydrated,setHydrated]=useState(false);useEffect(()=>setHydrated(true),[]);
+  const[hydrated,setHydrated]=useState(false);useEffect(()=>setHydrated(true),[]);useEffect(()=>{setActive(initialTool);setOutput(null)},[initialTool]);
   const canvas=useRef<HTMLCanvasElement>(null);const groups=Array.from(new Set(tools.map(x=>x.group)));
   const mime=active==='to-webp'||active==='compress'?'image/webp':'image/png';
   const choose=(id:Tool)=>{setActive(id);setOutput(null);setStatus(src?'Configure the option and create a fresh preview.':'Choose an image to begin.')};
@@ -41,8 +43,8 @@ export function ImageToolsStudio(){
   const render=async()=>{const el=canvas.current;if(!el||!src)return null;setBusy(true);setStatus('Rendering a high-quality preview locally…');try{const image=await imageFrom(src);draw(active,image,el,{quality:+quality/100,width:+width,height:+height,preset,threshold:+threshold,region,padding:+padding,color});const blob=await canvasBlob(el,mime,+quality/100);setOutput({size:blob.size,type:mime,width:el.width,height:el.height});setStatus(`Preview ready at ${el.width} × ${el.height}px · ${formatBytes(blob.size)} estimated export.`);return blob}catch(error){setStatus(error instanceof Error?error.message:'Could not render this image.');return null}finally{setBusy(false)}};
   const download=async()=>{const blob=await render();if(!blob)return;const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`${fileName}-${active}.${mime==='image/webp'?'webp':'png'}`;link.click();setTimeout(()=>URL.revokeObjectURL(url),5000);setStatus(`Downloaded ${formatBytes(blob.size)} ${mime==='image/webp'?'WebP':'PNG'} at ${canvas.current?.width} × ${canvas.current?.height}px.`)};
   const saving=original&&output?original.size-output.size:null;
-  return <div data-testid="image-tools-studio" data-hydrated={hydrated?'true':'false'} className="grid gap-5 xl:grid-cols-[270px_minmax(0,1fr)]">
-    <aside className="self-start rounded-2xl border bg-white p-3 shadow-sm xl:sticky xl:top-4"><div className="px-3 pb-3 pt-2"><p className="text-xs font-bold uppercase tracking-[.18em] text-purple-600">12 image utilities</p><h2 className="mt-1 text-lg font-bold">Image Tools</h2></div>{groups.map(g=><div key={g} className="mb-3"><p className="px-3 py-1 text-[10px] font-bold uppercase tracking-[.16em] text-gray-400">{g}</p>{tools.filter(x=>x.group===g).map(x=><button key={x.id} onClick={()=>choose(x.id)} className={`mb-1 w-full rounded-xl px-3 py-2 text-left text-sm ${active===x.id?'bg-gray-950 font-semibold text-white':'text-gray-700 hover:bg-gray-100'}`}>{x.name}</button>)}</div>)}</aside>
+  return <div data-testid="image-tools-studio" data-hydrated={hydrated?'true':'false'} className={embedded?'min-w-0':'grid gap-5 xl:grid-cols-[270px_minmax(0,1fr)]'}>
+    {!embedded&&<aside className="self-start rounded-2xl border bg-white p-3 shadow-sm xl:sticky xl:top-4"><div className="px-3 pb-3 pt-2"><p className="text-xs font-bold uppercase tracking-[.18em] text-purple-600">12 image utilities</p><h2 className="mt-1 text-lg font-bold">Image Tools</h2></div>{groups.map(g=><div key={g} className="mb-3"><p className="px-3 py-1 text-[10px] font-bold uppercase tracking-[.16em] text-gray-400">{g}</p>{tools.filter(x=>x.group===g).map(x=><button key={x.id} onClick={()=>choose(x.id)} className={`mb-1 w-full rounded-xl px-3 py-2 text-left text-sm ${active===x.id?'bg-gray-950 font-semibold text-white':'text-gray-700 hover:bg-gray-100'}`}>{x.name}</button>)}</div>)}</aside>}
     <section className="min-w-0 space-y-5"><header className="rounded-2xl border bg-gradient-to-r from-purple-50 to-pink-50 p-5"><p className="text-xs font-bold uppercase tracking-[.16em] text-purple-700">Image Tools</p><h2 className="mt-1 text-2xl font-bold">{tools.find(x=>x.id===active)?.name}</h2><p className="mt-1 text-sm text-gray-600">Your image stays in this browser and is never uploaded.</p></header>
       <div className="grid gap-5 lg:grid-cols-[360px_minmax(0,1fr)]"><section className="space-y-4 rounded-2xl border bg-white p-5"><label className="block"><span className="mb-1 block text-sm font-medium">Choose image</span><input className={c} type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>load(e.target.files?.[0])}/></label>
         {['compress','to-webp'].includes(active)&&<Field label="Quality (%)" value={quality} set={setQuality} type="range"/>}

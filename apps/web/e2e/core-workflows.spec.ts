@@ -41,7 +41,8 @@ test('PDF studio merges a valid local PDF and rejects a disguised file', async (
 test('document generators switch to complete Bangla templates and export a PDF', async ({ page }) => {
   await page.goto('/pdf-document-studio');
   await page.getByRole('button',{name:'Resume to PDF',exact:true}).click();
-  await page.locator('label').filter({hasText:'Document language'}).locator('select').selectOption('bn');
+  await page.getByRole('button',{name:'Document language',exact:true}).click();
+  await page.getByRole('option',{name:'বাংলা',exact:true}).click();
   await expect(page.getByLabel('ডকুমেন্টের শিরোনাম',{exact:true})).toHaveValue('পেশাগত জীবনবৃত্তান্ত');
   await expect(page.locator('label').filter({hasText:'বিস্তারিত লেখা'}).locator('textarea')).toHaveValue(/কর্ম-অভিজ্ঞতা/);
   const website=page.locator('label').filter({hasText:'Website URL'}).locator('input');
@@ -52,6 +53,17 @@ test('document generators switch to complete Bangla templates and export a PDF',
   await page.getByRole('button',{name:'Create and download',exact:true}).click();
   const download=await downloadPromise;
   expect(download.suggestedFilename()).toBe('resume-document.pdf');
+});
+
+test('teleprompter imports and exports a reusable text script',async({page})=>{
+  await page.goto('/teleprompter');
+  await page.getByLabel('Import .txt',{exact:true}).setInputFiles({name:'speech.txt',mimeType:'text/plain',buffer:Buffer.from('First paragraph.\n\nSecond paragraph.')});
+  const script = page.locator('label').filter({hasText:'Script'}).locator('textarea');
+  await expect(script).toHaveValue('First paragraph.\n\nSecond paragraph.');
+  const downloadPromise=page.waitForEvent('download');
+  await page.getByRole('button',{name:'Download .txt',exact:true}).click();
+  const download=await downloadPromise;
+  expect(download.suggestedFilename()).toBe('teleprompter-script.txt');
 });
 
 test('calculator studio remains stable at mobile width', async ({ page }) => {

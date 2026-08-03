@@ -1,4 +1,4 @@
-import { TOOLS } from '../lib/tools';
+import { TOOLS, TOTAL_UTILITIES } from '../lib/tools';
 import { getToolUrl } from '../lib/domain';
 
 export default function Home() {
@@ -6,24 +6,27 @@ export default function Home() {
   return (
     <main className="mx-auto w-full max-w-[1280px] px-4 pb-16 pt-8 sm:pt-10">
       <section className="overflow-hidden rounded-xl border border-gray-200 bg-white">
-        <div className="grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end lg:p-10">
-          <div>
-            <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-700">
-              <span className="h-1.5 w-1.5 rounded-full bg-ink" aria-hidden="true" />
-              Built for commerce in Bangladesh
-            </p>
-            <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl">
-              Practical tools for better business decisions.
-            </h1>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-gray-600 sm:text-lg">
-              Free calculators and selling utilities for pricing, profit, delivery, campaigns,
-              and everyday commerce operations.
-            </p>
-          </div>
-          <div className="flex items-center gap-8 border-t border-gray-200 pt-6 lg:border-l lg:border-t-0 lg:pb-1 lg:pl-8 lg:pt-0">
+        <div className="p-6 sm:p-8 lg:p-10">
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-medium text-gray-700">
+            <span className="h-1.5 w-1.5 rounded-full bg-ink" aria-hidden="true" />
+            Built for commerce in Bangladesh
+          </p>
+          <h1 className="text-3xl font-semibold tracking-tight text-ink sm:text-4xl lg:text-5xl">
+            Practical tools for better business decisions.
+          </h1>
+          <p className="mt-4 text-base leading-7 text-gray-600 sm:text-lg">
+            Free calculators and utilities for pricing, profit, delivery and campaigns — plus
+            image, PDF, developer, SEO, study, career and everyday tools. Nothing to install,
+            nothing to sign up for.
+          </p>
+          <div className="mt-8 grid grid-cols-3 gap-3 border-t border-gray-200 pt-6 text-center sm:flex sm:flex-wrap sm:items-start sm:justify-center sm:gap-x-12">
+            <div>
+              <p className="text-2xl font-semibold text-ink">{TOTAL_UTILITIES}</p>
+              <p className="text-xs text-gray-500">Utilities available</p>
+            </div>
             <div>
               <p className="text-2xl font-semibold text-ink">{TOOLS.filter((tool) => tool.ready).length}</p>
-              <p className="text-xs text-gray-500">Tools available</p>
+              <p className="text-xs text-gray-500">Tool workspaces</p>
             </div>
             <div>
               <p className="text-2xl font-semibold text-ink">Free</p>

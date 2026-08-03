@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState, type FormEvent } from 'react';
+import { getHubUrl } from '../../lib/domain';
 
 export function LeadCapture() {
   const [name, setName] = useState('');
@@ -164,7 +165,7 @@ export function LeadCapture() {
                       <span>
                         I agree to receive this follow-up and accept the{' '}
                         <a
-                          href="/privacy"
+                          href={`${getHubUrl()}/privacy`}
                           className="font-medium text-ink underline underline-offset-2"
                         >
                           privacy notice

@@ -9,3 +9,7 @@ apps/*/.data/
 apps/web/test-results/
 apps/web/playwright-report/
 node_modules
+
+# Real business documents — never commit client data.
+invoice_*.html
+invoice_*.pdf

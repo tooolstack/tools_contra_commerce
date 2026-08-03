@@ -13,6 +13,11 @@ import {
 export type ParcelTrackingProps = ToolProps & {
   /** API endpoint (default: /api/track) */
   endpoint?: string;
+  /**
+   * Where to send a user who has no courier connected yet. Pass an absolute URL
+   * when tools are served from per-tool subdomains.
+   */
+  settingsUrl?: string;
 };
 
 type TrackResult = { tracking: string; status: string; lastUpdate: string; courier: string };
@@ -37,12 +42,14 @@ export function ParcelTracking({
   ctaUrl = '#',
   className = '',
   endpoint = '/api/track',
+  settingsUrl = '/courier-settings',
 }: ParcelTrackingProps) {
   const [input, setInput] = useState('CS123456\nPTH987654\nRDX555111');
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<TrackResult[] | null>(null);
   const [demo, setDemo] = useState(false);
   const [error, setError] = useState('');
+  const [needsConnection, setNeedsConnection] = useState(false);
 
   const track = async () => {
     const trackingNumbers = input.split(/[\n,]+/).map((s) => s.trim()).filter(Boolean);
@@ -63,10 +70,18 @@ export function ParcelTracking({
       if (!res.ok) throw new Error(data.error || 'tracking_failed');
       setResults(data.results);
       setDemo(data.demo);
-    } catch {
+      setNeedsConnection(false);
+    } catch (cause) {
       setResults(null);
       setDemo(false);
-      setError('Tracking is temporarily unavailable. Please try again.');
+      // A missing courier connection is a setup step, not an outage — telling the
+      // user to "try again" would send them into a loop that can never succeed.
+      const connectionMissing =
+        cause instanceof Error && cause.message === 'courier_connection_required';
+      setNeedsConnection(connectionMissing);
+      setError(
+        connectionMissing ? '' : 'Tracking is temporarily unavailable. Please try again.',
+      );
     } finally {
       setLoading(false);
     }
@@ -91,6 +106,24 @@ export function ParcelTracking({
           {loading ? 'Tracking…' : 'Track parcels'}
         </button>
         {error && <p className="text-xs text-red-700">{error}</p>}
+        {needsConnection && (
+          <div className="rounded-xl border border-amber-200 bg-amber-50 p-3">
+            <p className="text-sm font-semibold text-amber-900">
+              Connect a courier account first
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-amber-900">
+              Live parcel status comes from your own courier account, so there is nothing to
+              track until one is connected. This is a one-time setup — it is not a temporary
+              outage.
+            </p>
+            <a
+              href={settingsUrl}
+              className="mt-2 inline-block rounded-lg bg-amber-900 px-3 py-1.5 text-xs font-semibold text-white"
+            >
+              Open courier settings
+            </a>
+          </div>
+        )}
       </InputCard>
 
       <ResultsColumn>

@@ -5,7 +5,7 @@ import {
 // src/components/ImageToolsStudio.tsx
 import { useEffect, useRef, useState } from "react";
 import { Fragment, jsx, jsxs } from "react/jsx-runtime";
-var tools = [
+var imageToolModules = [
   { id: "compress", name: "Image Compressor", group: "Optimize" },
   { id: "to-webp", name: "Image to WebP", group: "Optimize" },
   { id: "webp-png", name: "WebP to PNG", group: "Optimize" },
@@ -19,6 +19,7 @@ var tools = [
   { id: "blur-face", name: "Blur Face Tool", group: "Product & Privacy" },
   { id: "screenshot", name: "Screenshot Beautifier", group: "Design" }
 ];
+var tools = imageToolModules;
 var c = "w-full rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-gray-900 focus:ring-2 focus:ring-gray-100";
 var btn = "rounded-xl bg-gray-950 px-4 py-2.5 text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40";
 var MAX_IMAGE_BYTES = 40 * 1024 * 1024;
@@ -43,8 +44,8 @@ function imageFrom(url) {
 function canvasBlob(canvas, type, quality) {
   return new Promise((resolve, reject) => canvas.toBlob((value) => value ? resolve(value) : reject(new Error("The browser could not create the export.")), type, quality));
 }
-function ImageToolsStudio() {
-  const [active, setActive] = useState("compress");
+function ImageToolsStudio({ initialTool = "compress", embedded = false } = {}) {
+  const [active, setActive] = useState(initialTool);
   const [src, setSrc] = useState("");
   const [fileName, setFileName] = useState("image");
   const [quality, setQuality] = useState("82");
@@ -61,6 +62,10 @@ function ImageToolsStudio() {
   const [busy, setBusy] = useState(false);
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => setHydrated(true), []);
+  useEffect(() => {
+    setActive(initialTool);
+    setOutput(null);
+  }, [initialTool]);
   const canvas = useRef(null);
   const groups = Array.from(new Set(tools.map((x) => x.group)));
   const mime = active === "to-webp" || active === "compress" ? "image/webp" : "image/png";
@@ -140,8 +145,8 @@ function ImageToolsStudio() {
     setStatus(`Downloaded ${formatBytes(blob.size)} ${mime === "image/webp" ? "WebP" : "PNG"} at ${canvas.current?.width} \xD7 ${canvas.current?.height}px.`);
   };
   const saving = original && output ? original.size - output.size : null;
-  return /* @__PURE__ */ jsxs("div", { "data-testid": "image-tools-studio", "data-hydrated": hydrated ? "true" : "false", className: "grid gap-5 xl:grid-cols-[270px_minmax(0,1fr)]", children: [
-    /* @__PURE__ */ jsxs("aside", { className: "self-start rounded-2xl border bg-white p-3 shadow-sm xl:sticky xl:top-4", children: [
+  return /* @__PURE__ */ jsxs("div", { "data-testid": "image-tools-studio", "data-hydrated": hydrated ? "true" : "false", className: embedded ? "min-w-0" : "grid gap-5 xl:grid-cols-[270px_minmax(0,1fr)]", children: [
+    !embedded && /* @__PURE__ */ jsxs("aside", { className: "self-start rounded-2xl border bg-white p-3 shadow-sm xl:sticky xl:top-4", children: [
       /* @__PURE__ */ jsxs("div", { className: "px-3 pb-3 pt-2", children: [
         /* @__PURE__ */ jsx("p", { className: "text-xs font-bold uppercase tracking-[.18em] text-purple-600", children: "12 image utilities" }),
         /* @__PURE__ */ jsx("h2", { className: "mt-1 text-lg font-bold", children: "Image Tools" })
@@ -322,6 +327,7 @@ function draw(tool, img, el, o) {
 }
 
 export {
+  imageToolModules,
   validateImageFile,
   ImageToolsStudio
 };

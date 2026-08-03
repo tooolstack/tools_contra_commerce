@@ -1,4 +1,7 @@
 import {
+  EducationToolsStudio
+} from "./chunk-KIGX4WCE.js";
+import {
   CareerToolsStudio
 } from "./chunk-NACHKQHA.js";
 import {
@@ -17,26 +20,17 @@ import {
   HomeToolsStudio
 } from "./chunk-EMQ6JDTS.js";
 import {
-  ImageToolsStudio
-} from "./chunk-IQTF62UQ.js";
-import {
   calcProfit
 } from "./chunk-RVPDTR44.js";
+import {
+  ImageToolsStudio
+} from "./chunk-MJTHEUXP.js";
 import {
   DeveloperToolsStudio
 } from "./chunk-46GKPOUS.js";
 import {
   WebsiteSeoStudio
 } from "./chunk-5SY22ODC.js";
-import {
-  CalculatorToolsStudio
-} from "./chunk-YWTWSC5T.js";
-import {
-  ProductivityToolsStudio
-} from "./chunk-BFKKSNYC.js";
-import {
-  EducationToolsStudio
-} from "./chunk-KIGX4WCE.js";
 import {
   CalculatorShell,
   CopyField,
@@ -59,6 +53,12 @@ import {
   pct,
   useResultTracking
 } from "./chunk-NCBI5OCB.js";
+import {
+  CalculatorToolsStudio
+} from "./chunk-YWTWSC5T.js";
+import {
+  ProductivityToolsStudio
+} from "./chunk-BFKKSNYC.js";
 
 // src/components/ProfitCalculator.tsx
 import { useEffect, useMemo, useState } from "react";
@@ -2484,7 +2484,7 @@ function Select({ label, value, options, onChange }) {
 // src/components/LaunchToolSuite.tsx
 import { lazy, Suspense, useEffect as useEffect12, useMemo as useMemo12, useRef as useRef2, useState as useState12 } from "react";
 import { Fragment as Fragment4, jsx as jsx12, jsxs as jsxs12 } from "react/jsx-runtime";
-var SocialMediaToolSuite = lazy(() => import("./SocialMediaToolSuite-V7CBD2XQ.js").then((module) => ({ default: module.SocialMediaToolSuite })));
+var SocialMediaToolSuite = lazy(() => import("./SocialMediaToolSuite-GAVF2PAD.js").then((module) => ({ default: module.SocialMediaToolSuite })));
 var DeveloperToolsStudio2 = lazy(() => import("./DeveloperToolsStudio-NVG6252C.js").then((module) => ({ default: module.DeveloperToolsStudio })));
 var WebsiteSeoStudio2 = lazy(() => import("./WebsiteSeoStudio-G2SHPBKC.js").then((module) => ({ default: module.WebsiteSeoStudio })));
 var CalculatorToolsStudio2 = lazy(() => import("./CalculatorToolsStudio-DB7ZQIV6.js").then((module) => ({ default: module.CalculatorToolsStudio })));
@@ -2496,7 +2496,7 @@ var TravelToolsStudio2 = lazy(() => import("./TravelToolsStudio-PIB6PJ6G.js").th
 var CreatorToolsStudio2 = lazy(() => import("./CreatorToolsStudio-5W3SGD7M.js").then((module) => ({ default: module.CreatorToolsStudio })));
 var TextUtilityStudio2 = lazy(() => import("./TextUtilityStudio-Y4NJXD2X.js").then((module) => ({ default: module.TextUtilityStudio })));
 var HomeToolsStudio2 = lazy(() => import("./HomeToolsStudio-YMOOKPPD.js").then((module) => ({ default: module.HomeToolsStudio })));
-var ImageToolsStudio2 = lazy(() => import("./ImageToolsStudio-46QHQW4T.js").then((module) => ({ default: module.ImageToolsStudio })));
+var ImageToolsStudio2 = lazy(() => import("./ImageToolsStudio-D64HA2B6.js").then((module) => ({ default: module.ImageToolsStudio })));
 function LaunchToolSuite({ tool }) {
   if (tool === "developer-tools") return studio(tool, /* @__PURE__ */ jsx12(DeveloperToolsStudio2, {}));
   if (tool === "website-seo-tools") return studio(tool, /* @__PURE__ */ jsx12(WebsiteSeoStudio2, {}));
@@ -2599,6 +2599,12 @@ function Shell({ inputs, result }) {
   return /* @__PURE__ */ jsxs12("div", { className: "grid gap-5 lg:grid-cols-2", children: [
     /* @__PURE__ */ jsx12("section", { className: "space-y-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm", children: inputs }),
     /* @__PURE__ */ jsx12("section", { className: "space-y-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm", children: result })
+  ] });
+}
+function StackedShell({ inputs, result }) {
+  return /* @__PURE__ */ jsxs12("div", { className: "grid min-w-0 grid-cols-1 gap-5", children: [
+    /* @__PURE__ */ jsx12("section", { className: "min-w-0 space-y-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm", children: inputs }),
+    /* @__PURE__ */ jsx12("section", { className: "min-w-0 space-y-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm", children: result })
   ] });
 }
 function ResultFirstShell({ inputs, result, resultColumns = 2 }) {
@@ -2740,7 +2746,7 @@ ${close}
 
 Regards`;
   }, [text, workflow, tone, recipient, goal]);
-  return /* @__PURE__ */ jsx12(Shell, { inputs: /* @__PURE__ */ jsxs12(Fragment4, { children: [
+  return /* @__PURE__ */ jsx12(StackedShell, { inputs: /* @__PURE__ */ jsxs12(Fragment4, { children: [
     /* @__PURE__ */ jsx12(Select2, { label: "Rewriter workflow", value: workflow, onChange: setWorkflow, options: ["Polite Email Rewriter", "Angry Message to Professional Message", "General Professional Rewrite"] }),
     /* @__PURE__ */ jsx12(Area2, { label: "Original message", value: text, onChange: setText }),
     /* @__PURE__ */ jsxs12("div", { className: "grid gap-3 sm:grid-cols-2", children: [
@@ -2862,7 +2868,7 @@ ${signOff}` : ""}`;
     const digits = phone.replace(/\D/g, "");
     window.open(digits ? `https://wa.me/${digits}?text=${encodeURIComponent(reply)}` : `https://wa.me/?text=${encodeURIComponent(reply)}`, "_blank", "noopener,noreferrer");
   };
-  return /* @__PURE__ */ jsx12(Shell, { inputs: /* @__PURE__ */ jsxs12(Fragment4, { children: [
+  return /* @__PURE__ */ jsx12(StackedShell, { inputs: /* @__PURE__ */ jsxs12(Fragment4, { children: [
     /* @__PURE__ */ jsxs12("div", { children: [
       /* @__PURE__ */ jsx12("p", { className: "mb-2 text-sm font-medium text-gray-700", children: "Quick replies" }),
       /* @__PURE__ */ jsx12("div", { className: "flex flex-wrap gap-2", children: presets.map((preset) => /* @__PURE__ */ jsx12("button", { type: "button", className: `rounded-full border px-3 py-1.5 text-xs font-medium hover:border-gray-900 hover:text-gray-950 ${activePreset === preset.id ? "border-gray-900 bg-gray-950 text-white" : "border-gray-300 bg-white text-gray-700"}`, onClick: () => {
@@ -2923,13 +2929,13 @@ We are interested in ${product} for an initial order of ${qty} units. ${purpose 
 Please also send recent product photos and applicable certifications.
 
 Thank you.`;
-  return /* @__PURE__ */ jsx12(Shell, { inputs: /* @__PURE__ */ jsxs12(Fragment4, { children: [
+  return /* @__PURE__ */ jsx12(StackedShell, { inputs: /* @__PURE__ */ jsxs12(Fragment4, { children: [
     /* @__PURE__ */ jsx12(Field3, { type: "text", label: "Product", value: product, onChange: setProduct }),
     /* @__PURE__ */ jsx12(Field3, { label: "Quantity", value: qty, onChange: setQty }),
     /* @__PURE__ */ jsx12(Select2, { label: "Message purpose", value: purpose, onChange: setPurpose, options: ["Quotation request", "Sample request", "Order follow-up"] })
   ] }), result: /* @__PURE__ */ jsxs12(Fragment4, { children: [
     /* @__PURE__ */ jsx12(Area2, { label: "Supplier-ready message", value: output, onChange: () => {
-    } }),
+    }, rows: 16 }),
     /* @__PURE__ */ jsx12(Copy, { text: output })
   ] }) });
 }
@@ -2967,6 +2973,7 @@ function CaptionFormatter() {
 function Teleprompter() {
   const [text, setText] = useState12("Welcome. Paste your script here, then start the teleprompter.");
   const [speed, setSpeed] = useState12("35");
+  const [notice, setNotice] = useState12("");
   const screen = useRef2(null);
   const start = () => {
     screen.current?.requestFullscreen();
@@ -2977,13 +2984,71 @@ function Teleprompter() {
       if (el.scrollTop + el.clientHeight >= el.scrollHeight) clearInterval(id);
     }, Math.max(15, 80 - n3(speed)));
   };
+  const copyScript = async () => {
+    await navigator.clipboard.writeText(text);
+    setNotice("Script copied\u2014paste it into any writing, recording or collaboration platform.");
+    setTimeout(() => setNotice(""), 2200);
+  };
+  const downloadScript = () => {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "teleprompter-script.txt";
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    setNotice("Text file downloaded.");
+    setTimeout(() => setNotice(""), 2200);
+  };
+  const printScript = () => {
+    const popup = window.open("", "_blank", "width=900,height=800");
+    if (!popup) {
+      setNotice("Allow pop-ups to print or save the script as PDF.");
+      return;
+    }
+    const safe = text.replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[character] || character);
+    popup.document.write(`<!doctype html><html><head><title>Teleprompter script</title><style>@page{margin:20mm}body{font-family:Arial,sans-serif;font-size:16px;line-height:1.7;text-align:justify;white-space:pre-wrap;color:#111}p{text-align-last:left}</style></head><body><p>${safe}</p><script>addEventListener('load',()=>print())</script></body></html>`);
+    popup.document.close();
+  };
+  const importScript = (file) => {
+    if (!file) return;
+    if (file.type && file.type !== "text/plain") {
+      setNotice("Choose a plain .txt file.");
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setText(String(reader.result || ""));
+      setNotice("Text file imported.");
+      setTimeout(() => setNotice(""), 2200);
+    };
+    reader.readAsText(file);
+  };
   return /* @__PURE__ */ jsxs12("div", { className: "space-y-4", children: [
     /* @__PURE__ */ jsx12(Area2, { label: "Script", value: text, onChange: setText, rows: 8 }),
-    /* @__PURE__ */ jsxs12("div", { className: "flex gap-3", children: [
+    /* @__PURE__ */ jsxs12("div", { className: "flex flex-wrap items-end gap-3", children: [
       /* @__PURE__ */ jsx12(Field3, { label: "Scroll speed", value: speed, onChange: setSpeed }),
-      /* @__PURE__ */ jsx12("button", { className: buttonClass, onClick: start, children: "Start full screen" })
+      /* @__PURE__ */ jsx12("button", { className: `${buttonClass} h-[42px] shrink-0`, onClick: start, children: "Start full screen" })
     ] }),
-    /* @__PURE__ */ jsx12("div", { ref: screen, className: "h-[460px] overflow-y-auto bg-black px-[10vw] py-[35vh] text-center text-4xl font-semibold leading-relaxed text-white", children: text })
+    /* @__PURE__ */ jsxs12("section", { className: "rounded-2xl border border-gray-200 bg-gray-50 p-4", children: [
+      /* @__PURE__ */ jsxs12("div", { className: "flex flex-wrap items-center justify-between gap-3", children: [
+        /* @__PURE__ */ jsxs12("div", { children: [
+          /* @__PURE__ */ jsx12("h3", { className: "text-sm font-semibold text-gray-900", children: "Use this script on another platform" }),
+          /* @__PURE__ */ jsx12("p", { className: "mt-1 text-xs leading-5 text-gray-500", children: "Copy it into another app, download a reusable text file, or open the print dialog and choose Save as PDF." })
+        ] }),
+        /* @__PURE__ */ jsxs12("div", { className: "flex flex-wrap gap-2", children: [
+          /* @__PURE__ */ jsx12("button", { className: buttonClass, disabled: !text.trim(), onClick: copyScript, children: "Copy script" }),
+          /* @__PURE__ */ jsx12("button", { className: "rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-100 disabled:opacity-50", disabled: !text.trim(), onClick: downloadScript, children: "Download .txt" }),
+          /* @__PURE__ */ jsx12("button", { className: "rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-100 disabled:opacity-50", disabled: !text.trim(), onClick: printScript, children: "Print / Save PDF" }),
+          /* @__PURE__ */ jsxs12("label", { className: "cursor-pointer rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-100", children: [
+            "Import .txt",
+            /* @__PURE__ */ jsx12("input", { type: "file", accept: "text/plain,.txt", className: "hidden", onChange: (event) => importScript(event.target.files?.[0]) })
+          ] })
+        ] })
+      ] }),
+      notice && /* @__PURE__ */ jsx12("p", { role: "status", className: "mt-3 rounded-lg bg-blue-50 px-3 py-2 text-xs text-blue-800", children: notice })
+    ] }),
+    /* @__PURE__ */ jsx12("div", { ref: screen, style: { textAlign: "justify", textAlignLast: "left" }, className: "h-[460px] overflow-y-auto whitespace-pre-wrap bg-black px-[10vw] py-[35vh] text-4xl font-semibold leading-relaxed text-white", children: text })
   ] });
 }
 function UtmBuilder() {
@@ -4737,7 +4802,7 @@ function CourierChargeComparison({
     weight,
     cod
   });
-  return /* @__PURE__ */ jsxs17(CalculatorShell, { className, children: [
+  return /* @__PURE__ */ jsxs17("div", { className: `grid min-w-0 grid-cols-1 gap-6 ${className}`, children: [
     /* @__PURE__ */ jsxs17(InputCard, { title: "Customer location & parcel", children: [
       /* @__PURE__ */ jsx17(
         SelectField,
@@ -5167,7 +5232,15 @@ function AddressFormatter({
   ].filter(Boolean).join("\n");
   const Field5 = ({ label, value }) => /* @__PURE__ */ jsxs18("div", { className: "flex justify-between gap-3 border-b border-gray-100 py-2 text-sm", children: [
     /* @__PURE__ */ jsx18("span", { className: "text-gray-500", children: label }),
-    /* @__PURE__ */ jsx18("span", { className: "text-right font-medium text-gray-900", children: value || "\u2014" })
+    /* @__PURE__ */ jsx18(
+      "span",
+      {
+        className: "text-right font-medium text-gray-900",
+        suppressHydrationWarning: true,
+        translate: "no",
+        children: value || "\u2014"
+      }
+    )
   ] });
   return /* @__PURE__ */ jsxs18("div", { className: `grid items-start gap-6 lg:grid-cols-2 ${className}`, children: [
     /* @__PURE__ */ jsx18(InputCard, { title: "Paste the messy address", children: /* @__PURE__ */ jsx18(TextArea, { label: "Customer address", value: raw, onChange: setRaw, rows: 6, placeholder: SAMPLE }) }),
@@ -5511,6 +5584,11 @@ function FraudChecker({
     ] }),
     /* @__PURE__ */ jsxs21(ResultsColumn, { children: [
       result && style ? /* @__PURE__ */ jsxs21(Fragment7, { children: [
+        result.demo && /* @__PURE__ */ jsxs21("div", { className: "rounded-2xl border-2 border-amber-400 bg-amber-50 p-4", children: [
+          /* @__PURE__ */ jsx21("p", { className: "text-sm font-bold text-amber-900", children: "\u26A0 Simulated numbers \u2014 not this customer\u2019s real history" }),
+          /* @__PURE__ */ jsx21("p", { className: "mt-1 text-xs leading-relaxed text-amber-900", children: "No courier account is connected, so the figures below are generated from the phone number itself for demonstration. They are not a delivery record. Do not accept, reject or hold a real order based on this result." }),
+          /* @__PURE__ */ jsx21("p", { className: "mt-2 text-xs font-medium text-amber-900", children: "Connect a courier account to check the customer\u2019s actual parcel history." })
+        ] }),
         /* @__PURE__ */ jsxs21("div", { className: `rounded-2xl border p-5 ${style.border}`, children: [
           /* @__PURE__ */ jsxs21("div", { className: "flex flex-wrap items-center justify-between gap-2", children: [
             /* @__PURE__ */ jsx21("p", { className: "text-xs font-medium uppercase tracking-wide text-gray-500", children: result.orderReference ? `Order ${result.orderReference}` : "Current order assessment" }),
@@ -5519,7 +5597,7 @@ function FraudChecker({
                 "span",
                 {
                   className: `rounded-full px-2.5 py-1 text-xs font-semibold ${result.demo ? "bg-amber-100 text-amber-800" : "bg-emerald-100 text-emerald-800"}`,
-                  children: result.demo ? "Demo data" : result.cached || result.served === "cache" ? "Connected \xB7 cached" : /courier|aggregator|history/.test(result.served) ? "Connected \xB7 fresh lookup" : "Connected \xB7 own history"
+                  children: result.demo ? "Simulated \u2014 not real data" : result.cached || result.served === "cache" ? "Connected \xB7 cached" : /courier|aggregator|history/.test(result.served) ? "Connected \xB7 fresh lookup" : "Connected \xB7 own history"
                 }
               ),
               /* @__PURE__ */ jsx21("span", { className: `rounded-full bg-white px-2.5 py-1 text-xs font-semibold ${style.text}`, children: style.badge })
@@ -5613,13 +5691,15 @@ function ParcelTracking({
   ctaText = "Auto-track every parcel & notify customers with Contra Commerce",
   ctaUrl = "#",
   className = "",
-  endpoint = "/api/track"
+  endpoint = "/api/track",
+  settingsUrl = "/courier-settings"
 }) {
   const [input3, setInput] = useState22("CS123456\nPTH987654\nRDX555111");
   const [loading, setLoading] = useState22(false);
   const [results, setResults] = useState22(null);
   const [demo, setDemo] = useState22(false);
   const [error, setError] = useState22("");
+  const [needsConnection, setNeedsConnection] = useState22(false);
   const track = async () => {
     const trackingNumbers = input3.split(/[\n,]+/).map((s) => s.trim()).filter(Boolean);
     if (!trackingNumbers.length) {
@@ -5639,10 +5719,15 @@ function ParcelTracking({
       if (!res.ok) throw new Error(data.error || "tracking_failed");
       setResults(data.results);
       setDemo(data.demo);
-    } catch {
+      setNeedsConnection(false);
+    } catch (cause) {
       setResults(null);
       setDemo(false);
-      setError("Tracking is temporarily unavailable. Please try again.");
+      const connectionMissing = cause instanceof Error && cause.message === "courier_connection_required";
+      setNeedsConnection(connectionMissing);
+      setError(
+        connectionMissing ? "" : "Tracking is temporarily unavailable. Please try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -5669,7 +5754,19 @@ function ParcelTracking({
           children: loading ? "Tracking\u2026" : "Track parcels"
         }
       ),
-      error && /* @__PURE__ */ jsx22("p", { className: "text-xs text-red-700", children: error })
+      error && /* @__PURE__ */ jsx22("p", { className: "text-xs text-red-700", children: error }),
+      needsConnection && /* @__PURE__ */ jsxs22("div", { className: "rounded-xl border border-amber-200 bg-amber-50 p-3", children: [
+        /* @__PURE__ */ jsx22("p", { className: "text-sm font-semibold text-amber-900", children: "Connect a courier account first" }),
+        /* @__PURE__ */ jsx22("p", { className: "mt-1 text-xs leading-relaxed text-amber-900", children: "Live parcel status comes from your own courier account, so there is nothing to track until one is connected. This is a one-time setup \u2014 it is not a temporary outage." }),
+        /* @__PURE__ */ jsx22(
+          "a",
+          {
+            href: settingsUrl,
+            className: "mt-2 inline-block rounded-lg bg-amber-900 px-3 py-1.5 text-xs font-semibold text-white",
+            children: "Open courier settings"
+          }
+        )
+      ] })
     ] }),
     /* @__PURE__ */ jsxs22(ResultsColumn, { children: [
       /* @__PURE__ */ jsx22(OutputBox, { title: "Parcel status", children: results && results.length > 0 ? /* @__PURE__ */ jsxs22("div", { className: "space-y-2", children: [

@@ -28,7 +28,7 @@ const hindSiliguri = Hind_Siliguri({
 
 export const metadata: Metadata = {
   title: 'Contra Commerce — Free Business Tools',
-  description: 'Free e-commerce calculators and selling tools for online businesses in Bangladesh.',
+  description: 'Free calculators and utilities for online business in Bangladesh — pricing, profit and delivery, plus image, PDF, developer, SEO, study and everyday tools. No account needed.',
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -111,7 +111,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                 >
                   Courier settings
                 </a>
-                <a href="/privacy" className="transition hover:text-ink">
+                <a href={`${getHubUrl()}/privacy`} className="transition hover:text-ink">
                   Privacy notice
                 </a>
               </nav>

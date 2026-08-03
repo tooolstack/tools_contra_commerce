@@ -1,5 +1,9 @@
 "use client";
 import {
+  ImageToolsStudio,
+  imageToolModules
+} from "./chunk-MJTHEUXP.js";
+import {
   DropdownControl
 } from "./chunk-NCBI5OCB.js";
 
@@ -75,7 +79,8 @@ var socialModules = [
   { slug: "engagement-rate-calculator", title: "Engagement Rate Calculator", group: "Measure" },
   { slug: "influencer-rate-calculator", title: "Influencer Rate Calculator", group: "Measure" },
   { slug: "giveaway-winner-picker", title: "Giveaway Winner Picker", group: "Community" },
-  { slug: "social-username-checker", title: "Username Availability Checker", group: "Community" }
+  { slug: "social-username-checker", title: "Username Availability Checker", group: "Community" },
+  ...imageToolModules.map((item) => ({ slug: `image:${item.id}`, title: item.name, group: `Image \xB7 ${item.group}` }))
 ];
 function SocialMediaTools() {
   const [active, setActive] = useState("instagram-bio-generator");
@@ -84,7 +89,7 @@ function SocialMediaTools() {
   return /* @__PURE__ */ jsxs("div", { className: "grid gap-5 xl:grid-cols-[260px_minmax(0,1fr)]", children: [
     /* @__PURE__ */ jsxs("aside", { className: "self-start rounded-2xl border border-gray-200 bg-white p-3 shadow-sm xl:sticky xl:top-4", children: [
       /* @__PURE__ */ jsxs("div", { className: "px-3 pb-3 pt-2", children: [
-        /* @__PURE__ */ jsx("p", { className: "text-xs font-bold uppercase tracking-[.18em] text-violet-600", children: "12 focused tools" }),
+        /* @__PURE__ */ jsx("p", { className: "text-xs font-bold uppercase tracking-[.18em] text-violet-600", children: "24 focused tools" }),
         /* @__PURE__ */ jsx("h2", { className: "mt-1 text-lg font-bold text-gray-950", children: "Social Media Tools" })
       ] }),
       groups.map((group) => /* @__PURE__ */ jsxs("div", { className: "mb-3", children: [
@@ -96,9 +101,9 @@ function SocialMediaTools() {
       /* @__PURE__ */ jsxs("div", { className: "mb-4 rounded-2xl border border-gray-200 bg-gradient-to-r from-violet-50 to-pink-50 p-5", children: [
         /* @__PURE__ */ jsx("p", { className: "text-xs font-bold uppercase tracking-[.16em] text-violet-600", children: "Social Media Tools" }),
         /* @__PURE__ */ jsx("h2", { className: "mt-1 text-2xl font-bold text-gray-950", children: selected.title }),
-        /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Work privately in your browser, then copy the finished result to your platform." })
+        /* @__PURE__ */ jsx("p", { className: "mt-1 text-sm text-gray-600", children: "Work privately in your browser, then copy or download the finished result for your platform." })
       ] }),
-      active === "caption-formatter" ? /* @__PURE__ */ jsx(CaptionLineBreakFormatter, {}) : /* @__PURE__ */ jsx(SocialMediaToolSuite, { tool: active })
+      active === "caption-formatter" ? /* @__PURE__ */ jsx(CaptionLineBreakFormatter, {}) : active.startsWith("image:") ? /* @__PURE__ */ jsx(ImageToolsStudio, { embedded: true, initialTool: active.slice(6) }) : /* @__PURE__ */ jsx(SocialMediaToolSuite, { tool: active })
     ] })
   ] });
 }
