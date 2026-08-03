@@ -1,0 +1,20 @@
+groups:
+  - name: contra-commerce-staging
+    rules:
+      - alert: ContraServiceUnavailable
+        expr: probe_success == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Contra staging service is unavailable"
+          description: "{{ $labels.instance }} has failed readiness checks for two minutes."
+
+      - alert: ContraProbeSlow
+        expr: probe_duration_seconds > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Contra staging response is slow"
+          description: "{{ $labels.instance }} has exceeded five seconds for five minutes."

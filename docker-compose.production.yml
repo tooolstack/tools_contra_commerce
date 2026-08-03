@@ -1,0 +1,31 @@
+services:
+  tools-migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
+      args:
+        NEXT_PUBLIC_TOOLS_DOMAIN: ${NEXT_PUBLIC_TOOLS_DOMAIN:?set NEXT_PUBLIC_TOOLS_DOMAIN}
+        NEXT_PUBLIC_TOOLS_PATH_ROUTING: ${NEXT_PUBLIC_TOOLS_PATH_ROUTING:-false}
+        NEXT_PUBLIC_TRACK_ENDPOINT: ${NEXT_PUBLIC_TRACK_ENDPOINT:-/api/event}
+    env_file:
+      - apps/web/.env.production
+    command: ["npm", "run", "db:migrate"]
+    restart: "no"
+
+  tools:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_TOOLS_DOMAIN: ${NEXT_PUBLIC_TOOLS_DOMAIN:?set NEXT_PUBLIC_TOOLS_DOMAIN}
+        NEXT_PUBLIC_TOOLS_PATH_ROUTING: ${NEXT_PUBLIC_TOOLS_PATH_ROUTING:-false}
+        NEXT_PUBLIC_TRACK_ENDPOINT: ${NEXT_PUBLIC_TRACK_ENDPOINT:-/api/event}
+    env_file:
+      - apps/web/.env.production
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      tools-migrate:
+        condition: service_completed_successfully

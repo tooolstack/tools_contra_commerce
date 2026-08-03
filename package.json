@@ -1,0 +1,30 @@
+{
+  "name": "contra-tools",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Contra Commerce free business tools — one codebase, two outputs (public marketing site + a drop-in component kit for the SaaS).",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "overrides": {
+    "postcss": "8.5.23",
+    "sharp": "0.35.3"
+  },
+  "scripts": {
+    "dev": "npm run dev -w @contra/web",
+    "build:web": "npm run build -w @contra/web",
+    "build:kit": "npm run build -w @contra/tools-kit",
+    "build:css": "npm run build:css -w @contra/tools-kit",
+    "db:migrate": "node --env-file-if-exists=apps/web/.env.local scripts/migrate-db.mjs",
+    "deploy:check": "node --env-file-if-exists=apps/web/.env.local scripts/check-production-env.mjs",
+    "staging:bootstrap": "node scripts/bootstrap-staging-env.mjs",
+    "staging:smoke": "node scripts/staging-smoke.mjs",
+    "verify": "npm test && npm run lint -w @contra/web && npm run build:web",
+    "test:e2e": "npm run test:e2e -w @contra/web",
+    "test": "npm run test --workspaces --if-present"
+  }
+}

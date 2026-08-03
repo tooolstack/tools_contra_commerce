@@ -1,0 +1,11 @@
+# Local environment files may contain credentials.
+.env
+.env.local
+.env.*.local
+apps/*/.env.local
+apps/*/.next/
+apps/*/.next-*/
+apps/*/.data/
+apps/web/test-results/
+apps/web/playwright-report/
+node_modules
